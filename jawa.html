@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <ul id="myList2"></ul>
+  </div>
+  <h1>Project 4</h1>
+
+  <label for="text">Teks:</label>
+  <input type="text" id="text" placeholder="Masukkan teks">
+  <br>
+  <label for="quantity">Jumlah:</label>
+  <input type="number" id="quantity" placeholder="Masukkan jumlah" min="1" value="">
+
+  <button onclick="generateListItem()">Generate Item</button>
+  <br>
+  <h3>warna Teks</h3>
+  <input onclick="changeColor('blue')" type="radio" name="color" id="blue">biru
+  <input onclick="changeColor('red')" type="radio" name="color" id="red">merah
+  <input onclick="changeColor('green')" type="radio" name="color" id="green">hijau
+  <br>
+  <h3>Warna Hover</h3>
+  <input onmouseover="changeHoverColor('blue')" type="radio" name="hoverColor" id="hoverBlue">biru
+  <input onmouseover="changeHoverColor('red')" type="radio" name="hoverColor" id="hoverRed">merah
+  <input onmouseover="changeHoverColor('green')" type="radio" name="hoverColor" id="hoverGreen">hijau
+  <script>
+    function generateListItem() {
+      var textInput = document.getElementById("text").value;
+      var quantityInput = document.getElementById("quantity").value;
+
+      if (textInput && quantityInput > 0) {
+        var myList = document.getElementById("myList2");
+
+        while (myList.firstChild) {
+          myList.removeChild(myList.firstChild);
+        }
+
+        for (var i = 1; i <= quantityInput; i++) {
+          var listItem = document.createElement("li");
+          listItem.textContent = textInput + " " + i;
+          myList.appendChild(listItem);
+        }
+      }
+    }
+
+    function changeColor(color) {
+      var list = document.getElementById("myList2");
+      list.style.color = color;
+    }
+
+    function changeHoverColor(color) {
+      var listItems = document.querySelectorAll("#myList2 li");
+
+      listItems.forEach(function (item) {
+        item.addEventListener("mouseover", function () {
+          item.style.color = color;
+        });
+
+        item.addEventListener("mouseout", function () {
+          item.style.color = ""; // Reset to default color on mouseout
+        });
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .warna-ganti {
+            color: blue;
+        }
+        .asal{
+            color: black;
+        }
+    </style>
+</head>
+<body
+    <ul>
+        <li>Nomor 1</li>
+        <li>Nomor 2</li>
+        <li>Nomor 3</li>
+        <li>Nomor 4</li>
+        <li>Nomor 5</li>
+    </ul>
+    <button id="tombol" onclick="ubah()">Cari angka genab</button>
+
+    <script>
+        function ubah() {
+            var listItems = document.getElementsByTagName("li");
+            for (var i = 0; i < listItems.length; i++) {
+                if ((i + 1) % 2 === 0) {
+                    listItems[i].classList.add("warna-ganti");
+                }
+            }
+            var tombol = document.getElementById("tombol");
+            tombol.innerHTML = "Kembali"; {
+            }
+        }
+    </script>
+</body>
+</html>

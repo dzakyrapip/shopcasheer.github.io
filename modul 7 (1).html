@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hehe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            margin-top: 120px;
+        }
+        .body {
+            display: flex;
+        }
+        #inputArea {
+            width: 20%;
+            height: 250px;
+            margin-left: 50px;
+        }
+        #generateButton {
+            margin-top: 10px;
+            margin-left: 248px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #trayekTable {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 15%;
+        }
+        #trayekTable th, #trayekTable td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+        <h2>Trayek</h2>
+
+        <textarea id="inputArea" placeholder="Masukkan data trayek" ></textarea>
+        <br>
+    </div>
+    <button id="generateButton" onclick="generateTrayekTable()">Generate</button>
+    <table id="trayekTable">
+        <thead>
+            <tr>
+                <th>Trayek</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+<script>
+    function generateTrayekTable() {
+        var inputText = document.getElementById("inputArea").value;
+        var trayekArray = inputText.split(',');
+    
+        var tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = "";
+    
+        for (var i = 0; i < trayekArray.length; i++) {
+            var kotaArray = trayekArray[i].split(' ');
+            var row = tableBody.insertRow(i);
+            var cell = row.insertCell(0);
+            cell.innerHTML = kotaArray.join(' - ');
+        }
+    }
+</script>
+
+</body>
+</html>

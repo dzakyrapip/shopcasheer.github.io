@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Item List</title>
+  <style>
+    .item:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div id="item-list-container">
+  <ul id="item-list">
+    <!-- Item list will be dynamically generated here -->
+  </ul>
+</div>
+
+<div id="input-form">
+  <label for="item-text">Input Text:</label>
+  <input type="text" id="item-text">
+
+  <label for="item-quantity">Input Quantity:</label>
+  <input type="number" id="item-quantity">
+
+  <button onclick="addItem()">Add Item</button>
+</div>
+
+<script>
+  function addItem() {
+    // Get input values
+    var itemText = document.getElementById('item-text').value;
+    var itemQuantity = parseInt(document.getElementById('item-quantity').value);
+
+    // Validate quantity
+    if (isNaN(itemQuantity) || itemQuantity <= 0) {
+      alert("Please enter a valid quantity greater than 0.");
+      return;
+    }
+
+    // Clear previous items
+    document.getElementById('item-list').innerHTML = '';
+
+    // Create and add new list items based on quantity
+    for (var i = 0; i < itemQuantity; i++) {
+      var newItem = document.createElement('li');
+      newItem.textContent = itemText;
+
+      // Add class for hover effect
+      newItem.classList.add('item');
+
+      // Add item to the list
+      document.getElementById('item-list').appendChild(newItem);
+    }
+
+    // Clear input fields
+    document.getElementById('item-text').value = '';
+    document.getElementById('item-quantity').value = '';
+  }
+</script>
+
+</body>
+</html>

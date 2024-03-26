@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Miring dengan Radio Button</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Masukkan Nilai (Pisahkan dengan Koma)</h2>
+    <input type="text" id="inputData" placeholder="Masukkan nilai, pisahkan dengan koma">
+    <button onclick="tampilkanTabel()">Tampilkan Tabel</button>
+
+    <h2>Hasil Tabel Miring</h2>
+    <table id="tabelMiring"></table>
+
+    <script>
+        function tampilkanTabel() {
+            var inputData = document.getElementById("inputData").value;
+            var dataArr = inputData.split(',');
+
+            var tabelMiring = "<tr>";
+            for (var i = 0; i < dataArr.length; i++) {
+                var huruf = String.fromCharCode(65 + i); // A, B, C, ...
+                tabelMiring += "<td><input type='radio' name='pilihan' value='" + huruf + "'>" + huruf + ". " + dataArr[i].trim() + "</td>";
+            }
+            tabelMiring += "</tr>";
+
+            document.getElementById("tabelMiring").innerHTML = tabelMiring;
+        }
+    </script>
+
+</body>
+</html>

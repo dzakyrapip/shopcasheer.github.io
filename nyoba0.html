@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz dengan Countdown</title>
+    <style>
+        .quiz-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .question-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+        .option-table {
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .option {
+            border: 1px solid black;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-right: 10px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        .countdown-container {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Input Soal, Jawaban, dan Waktu Countdown</h2>
+    <label for="soal">Soal:</label>
+    <input type="text" id="soal" placeholder="Masukkan soal">
+
+    <label for="jawaban">Jawaban:</label>
+    <input type="text" id="jawaban" placeholder="Masukkan jawaban">
+
+    <label for="waktu">Waktu Countdown (detik):</label>
+    <input type="number" id="waktu" placeholder="Masukkan waktu countdown">
+
+    <button onclick="tampilkanQuiz()">Tampilkan Quiz</button>
+
+    <div class="quiz-container" id="quizContainer">
+        <div class="question-container">
+            <table>
+                <tr>
+                    <th>No</th>
+                </tr>
+                <tr>
+                    <td id="outputNomor"></td>
+                </tr>
+            </table>
+            <div id="outputSoal"></div>
+            <div class="countdown-container" id="countdown"></div>
+        </div>
+        <div class="options-container" id="optionsContainer"></div>
+    </div>
+
+    <script>
+        function tampilkanQuiz() {
+            var soal = document.getElementById("soal").value;
+            var jawaban = document.getElementById("jawaban").value;
+            var waktuCountdown = parseInt(document.getElementById("waktu").value);
+
+            var outputNomorElement = document.getElementById("outputNomor");
+            var outputSoalElement = document.getElementById("outputSoal");
+            var optionsContainerElement = document.getElementById("optionsContainer");
+            var countdownElement = document.getElementById("countdown");
+            
+            outputNomorElement.textContent = "1"; // Nomor soal pertama
+            outputSoalElement.textContent = soal;
+            optionsContainerElement.innerHTML = "";
+
+            // Split jawaban menjadi array opsi
+            var opsiJawaban = jawaban.split(',');
+
+            // Tambahkan radio button untuk setiap opsi
+            for (var i = 0; i < opsiJawaban.length; i++) {
+                var huruf = String.fromCharCode(65 + i);
+                var nomor = i + 1;
+                
+                var radioOption = document.createElement("input");
+                radioOption.type = "radio";
+                radioOption.name = "jawabanOptions";
+                radioOption.value = opsiJawaban[i];
+                radioOption.id = "option" + i;
+
+                var labelOption = document.createElement("label");
+                labelOption.innerHTML = huruf + ": " + opsiJawaban[i];
+                labelOption.setAttribute("for", "option" + i);
+
+                var optionTable = document.createElement("table");
+                var optionRow = optionTable.insertRow(0);
+                var optionCell = optionRow.insertCell(0);
+                optionCell.appendChild(radioOption);
+                optionCell.appendChild(labelOption);
+
+                optionsContainerElement.appendChild(document.createTextNode(nomor + ". "));
+                optionsContainerElement.appendChild(optionTable);
+                optionsContainerElement.appendChild(document.createElement("br"));
+            }
+
+            // Tampilkan countdown
+            var countdown = waktuCountdown;
+            countdownElement.textContent = "Waktu Countdown: " + countdown + " detik";
+
+            // Membuat interval countdown
+            var countdownInterval = setInterval(function () {
+                countdown--;
+                countdownElement.textContent = "Waktu Countdown: " + countdown + " detik";
+
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = "Waktu Habis!";
+                }
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>

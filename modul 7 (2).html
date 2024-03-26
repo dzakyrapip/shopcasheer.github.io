@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 7 (2)</title>
+    <style>
+        table {
+            border-collapse: separate;
+            width: 80%;
+            margin: 20px auto;
+            
+        }
+        #itemWeight {
+            margin-left: 41px;
+            margin-top: 2px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+
+        tr.red-bg td:nth-child(3) {
+            background-color: red;
+        }
+
+        #itemPicture{
+            margin-left: 24px;
+            margin-top: 2px;
+        }
+        #dataForm {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Project-5</h1>
+
+    <!-- Form untuk tambah data -->
+    <form id="dataForm">
+        <label for="itemName">Nama Buah:</label>
+        <input type="text" id="itemName" name="itemName" required>
+        <br>
+        <label for="itemWeight">Berat:</label>
+        <input type="number" id="itemWeight" name="itemWeight" min="0" required>
+        <br>
+        <label for="itemPicture">Gambar:</label>
+        <input type="text" name="itemPicture" id="itemPicture">
+        <br>
+        <button type="button" onclick="addData()" style="margin-left: 84px; margin-top: 2px;">add</button>
+    </form>
+
+    <!-- Table untuk menampilkan data -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Buah</th>
+                <th>Berat (kg)</th>
+                <th>Gambar</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data akan ditambahkan di sini -->
+        </tbody>
+    </table>
+
+    <script>
+        function addData() {
+            var itemName = document.getElementById("itemName").value;
+            var itemWeight = document.getElementById("itemWeight").value;
+            var itemPicture = document.getElementById("itemPicture").value;
+        
+            var tableBody = document.getElementById("dataTable").getElementsByTagName('tbody')[0];
+        
+            var newRow = tableBody.insertRow(tableBody.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
+        
+            cell1.innerHTML = tableBody.rows.length;
+            cell2.innerHTML = itemName;
+            cell3.innerHTML = itemWeight;
+            cell4.innerHTML = '<img src="' + itemPicture + '" alt="Gambar" style="max-width: 100px; max-height: 100px;">';
+            cell5.innerHTML = '<button onclick="editRow(this)">Edit</button> <button onclick="deleteRow(this)">Delete</button>';
+        
+            if (itemWeight > 5) {
+                newRow.classList.add('red-bg');
+            }
+
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemWeight').value = '';
+            document.getElementById('itemPicture').value = '';
+        }
+        
+        
+        function editRow(btn) {
+            var row = btn.parentNode.parentNode;
+            var cells = row.getElementsByTagName("td");
+        
+            // Store the original values for potential rollback
+            var originalValues = [
+                cells[1].innerHTML,
+                cells[2].innerHTML,
+                cells[3].getElementsByTagName("img")[0].src
+            ];
+        
+            // Change the row to input fields for editing
+            cells[1].innerHTML = '<input type="text" value="' + cells[1].innerHTML + '">';
+            cells[2].innerHTML = '<input type="number" value="' + cells[2].innerHTML + '" min="0">';
+            cells[3].innerHTML = '<input type="url" value="' + originalValues[2] + '">';
+            cells[4].innerHTML = '<button onclick="saveRow(this)">Save</button> <button onclick="cancelEditRow(this, \'' + originalValues.join("','") + '\')">Cancel</button>';
+        }
+        
+        function saveRow(btn) {
+            var row = btn.parentNode.parentNode;
+            var cells = row.getElementsByTagName("td");
+        
+            // Get the edited values
+            var itemName = cells[1].getElementsByTagName("input")[0].value;
+            var itemWeight = cells[2].getElementsByTagName("input")[0].value;
+            var itemPicture = cells[3].getElementsByTagName("input")[0].value;
+        
+            // Update the row with the edited values
+            cells[1].innerHTML = itemName;
+            cells[2].innerHTML = itemWeight;
+            cells[3].innerHTML = '<img src="' + itemPicture + '" alt="Gambar" style="max-width: 100px; max-height: 100px;">';
+            cells[4].innerHTML = '<button onclick="editRow(this)">Edit</button> <button onclick="deleteRow(this)">Delete</button>';
+        }
+        
+        function cancelEditRow(btn, itemName, itemWeight, itemPicture) {
+            var row = btn.parentNode.parentNode;
+            var cells = row.getElementsByTagName("td");
+        
+            // Restore the original values
+            cells[1].innerHTML = itemName;
+            cells[2].innerHTML = itemWeight;
+            cells[3].innerHTML = '<img src="' + itemPicture + '" alt="Gambar" style="max-width: 100px; max-height: 100px;">';
+            cells[4].innerHTML = '<button onclick="editRow(this)">Edit</button> <button onclick="deleteRow(this)">Delete</button>';
+        }
+        
+        function deleteRow(btn) {
+            var row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+</body>
+</html>

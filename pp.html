@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial JS</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        #trayekTable {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 19.2%;
+        }
+        #trayekTable th, #trayekTable td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Trayek</h2>
+
+    <div class="inputArea">
+        <textarea id="inputTrayek" placeholder="Masukan data trayek" cols="30" rows="10"></textarea>
+        <br>
+        <button id="generateButton" onclick="trayekGenerate()">Generate</button>
+    </div>
+
+    <table id="trayekTable">
+        <thead>
+            <tr>
+                <th>Trayek</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script>
+        function trayekGenerate() {
+            var inputText = document.getElementById('inputTrayek').value;
+            var trayekArray = inputText.split(',');
+
+            var tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = "";
+
+            for (var i = 0; i < trayekArray.length; i++) {
+                var destArray = trayekArray[i].split(' ');
+                var row = tableBody.insertRow(i);
+                var cell = row.insertCell(0);
+                cell.innerHTML = destArray.join(' - ');
+            }
+        }
+    </script>
+
+</body>
+</html>

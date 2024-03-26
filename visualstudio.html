@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Belanja</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 20px;
+      background: url(https://i.pinimg.com/564x/3c/03/a9/3c03a9924546ad566584c13604d87c1d.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    h2 {
+      color: #2c3e50;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #2c3e50;
+    }
+
+    input {
+      padding: 8px;
+      margin-bottom: 10px;
+      width: 50%;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 8px;
+      cursor: pointer;
+      background-color: #2ecc71; /* Hijau */
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #27ae60; /* Hijau lebih tua */
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin-bottom: 20px;
+      background-color: #ecf0f1;
+    }
+
+    #daftarBelanja {
+        margin-top: 30px;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #bdc3c7;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    #totalLabel {
+      display: none;
+      font-weight: bold;
+      color: #e74c3c;
+      margin-top: 10px;
+    }
+
+    #total {
+      color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>TOSERBA VD</h2>
+
+  <label for="itemName">Nama Barang: </label>
+  <input type="text" id="itemName">
+  <label for="itemPrice">Harga Barang: </label>
+  <input type="number" id="itemPrice">
+  <label for="itemQuantity">Jumlah Barang: </label>
+  <input type="number" id="itemQuantity">
+  <br>
+  <button onclick="tambahBarang()">Tambah Barang</button>
+
+  <table id="daftarBelanja">
+    <thead>
+      <tr>
+        <th>Barang</th>
+        <th>Harga</th>
+        <th>Jumlah</th>
+        <th>Total</th>
+        <th>Tindakan</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <label for="totalUang">Total Uang: </label>
+  <input type="number" id="totalUang" oninput="updateSisaUang()">
+
+  <button onclick="bayar()">Bayar</button>
+
+  <p id="totalLabel" style="display:none">Total: <span id="total">Rp 0</span></p>
+
+  <script>
+    let barang = [];
+    let sisaUang = 0;
+
+    function tambahBarang() {
+      var namaBarang = document.getElementById('itemName').value;
+      var hargaBarang = parseInt(document.getElementById('itemPrice').value);
+      var jumlahBarang = parseInt(document.getElementById('itemQuantity').value);
+
+      if (namaBarang && !isNaN(hargaBarang) && hargaBarang > 0 && jumlahBarang > 0) {
+        var totalHarga = hargaBarang * jumlahBarang;
+
+        barang.push({ nama: namaBarang, harga: hargaBarang, jumlah: jumlahBarang, total: totalHarga });
+        tampilkanBarang();
+        hitungTotal();
+        updateSisaUang();
+        bersihkanInput();
+      } else {
+        alert('Mohon masukkan nama barang, harga, dan jumlah yang valid.');
+      }
+    }
+
+    function tampilkanBarang() {
+      var tabelBody = document.querySelector('#daftarBelanja tbody');
+      tabelBody.innerHTML = '';
+
+      barang.forEach((item, index) => {
+        var baris = tabelBody.insertRow();
+        var sel1 = baris.insertCell(0);
+        var sel2 = baris.insertCell(1);
+        var sel3 = baris.insertCell(2);
+        var sel4 = baris.insertCell(3);
+        var sel5 = baris.insertCell(4);
+
+        sel1.textContent = item.nama;
+        sel2.textContent = `Rp ${formatRupiah(item.harga)}`;
+        sel3.textContent = item.jumlah;
+        sel4.textContent = `Rp ${formatRupiah(item.total)}`;
+        sel5.innerHTML = `<button onclick="hapusBarang(${index})">Hapus</button>`;
+      });
+    }
+
+    function hapusBarang(index) {
+      barang.splice(index, 1);
+      tampilkanBarang();
+      hitungTotal();
+      updateSisaUang();
+    }
+
+    function hitungTotal() {
+      var totalElement = document.getElementById('total');
+      var totalLabel = document.getElementById('totalLabel');
+
+      var total = barang.reduce((sum, item) => sum + item.total, 0);
+
+      if (total > 0) {
+        totalLabel.style.display = 'block';
+        totalElement.textContent = `Rp ${formatRupiah(total)}`;
+      } else {
+        totalLabel.style.display = 'none';
+      }
+
+      return total;
+    }
+
+    function updateSisaUang() {
+      var totalUang = parseFloat(document.getElementById('totalUang').value);
+      var totalLabel = document.getElementById('totalLabel');
+
+      if (!isNaN(totalUang) && totalUang >= 0) {
+        sisaUang = totalUang - hitungTotal();
+      }
+    }
+
+    function bersihkanInput() {
+      document.getElementById('itemName').value = '';
+      document.getElementById('itemPrice').value = '';
+      document.getElementById('itemQuantity').value = '1';
+    }
+
+    function bayar() {
+      var totalUangElement = document.getElementById('totalUang');
+      var totalLabel = document.getElementById('totalLabel');
+
+      var totalUang = parseFloat(totalUangElement.value);
+
+      if (!isNaN(totalUang) && totalUang >= 0) {
+        var totalBelanja = hitungTotal();
+
+        if (totalUang >= totalBelanja) {
+          sisaUang = totalUang - totalBelanja;
+
+          barang = [];
+          tampilkanBarang();
+
+          totalUangElement.value = '';
+          totalLabel.style.display = 'none';
+
+          let pesanKembalian = sisaUang > 0 ? ` Sisa kembalian: Rp ${formatRupiah(sisaUang)}` : '';
+          alert(`Terima kasih telah berbelanja!${pesanKembalian}`);
+        } else {
+          alert('Duit pembayaran kurang. Mohon masukkan uang yang cukup.');
+        }
+      } else {
+        alert('Input tidak valid');
+      }
+    }
+
+    function formatRupiah(angka) {
+      var reverse = angka.toString().split('').reverse().join('');
+      var ribuan = reverse.match(/\d{1,3}/g);
+      var formatted = ribuan.join('.').split('').reverse().join('');
+      return formatted;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Project5</title>
+    <style>
+        .warna-ganti {
+            color: blue;
+            font-style: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="idsaya" onmouseover="changeBg()" onmouseout="changered()" style="width: 300px; height: 200px; background: red"></div>
+    <br>
+
+    <!-- Mini Project 1 -->
+    <h1>Mini Project 1</h1>
+    <ul id="list">
+        <li>Rusdi</li>
+        <li>Faiz</li>
+        <li>Fuad</li>
+        <li>Si Imut</li>
+        <li>Rehan</li>
+    </ul>
+    <br>
+
+    <p style="font-size: large;">Warna Teks</p>
+    <div style="display: flex;">
+        <div style="display: flex;">
+            <input onclick="wm()" type= "radio" name="warna">
+            <p>Merah</p>
+        </div>
+        <div style="display: flex;">
+            <input onclick="wk()" type= "radio" name="warna">
+            <p>Kuning</p>
+        </div>
+        <div style="display: flex;">
+            <input onclick="wh()" type= "radio" name="warna">
+            <p>Hijau</p>
+        </div>
+    </div>
+
+    <p style="font-size: large;">Warna Hover</p>
+    <div style="display: flex;">
+        <div style="display: flex;">
+            <input onmouseover="wh1()" onmouseout="wh1a()" type= "radio" name="warnahv">
+            <p onmouseover="wh1()" onmouseout="wh1a()">Hitam</p>
+        </div>
+        <div style="display: flex;">
+            <input onmouseover="wh2()" onmouseout="wh2a()" type= "radio" name="warnahv">
+            <p onmouseover="wh2()" onmouseout="wh2a()">Hijau</p>
+        </div>
+        <div style="display: flex;">
+            <input onmouseover="wh3()" onmouseout="wh3a()" type= "radio" name="warnahv">
+            <p onmouseover="wh3()" onmouseout="wh3a()">Coklat</p>
+        </div>
+    </div>
+
+    <!-- Mini Project 2 -->
+    <!-- List Genap -->
+    <div>
+        <h1>Project 2</h1>
+        
+        <ul id="mobil">
+            <li>Alpin VSCOde</li>
+            <li>Arsya Evergreen</li>
+            <li>Fahri Evergarden</li>
+            <li>Gunawan Ibrahimovic</li>
+            <li>Pasha Shirakawa</li>
+            <li>Mikel Pentagon</li>
+            <li>Rafif Stratocaster</li>
+            <li>Pilan Maersk</li>
+        </ul>
+
+        <button onclick="changeStyle()">Ubah warna elemen genap</button>
+    </div>
+
+    <!-- Mini Project 3 -->
+    <div>
+        <h1>Project 3</h1>
+        
+        <ul id="nama">
+            <li>Alpin VSCOde</li>
+            <li>Arsya Evergreen</li>
+            <li>Fahri Everygarden</li>
+            <li>Gunawan Ibrahimovic</li>
+            <li>Pasha Shirakawa</li>
+            <li>Mikel Pentagron</li>
+            <li>Rafif Stratocaster</li>
+            <li>Pilan Maersk</li>
+        </ul>
+
+        <label for="colorSelector">Warna Elemen Genab:</label>
+        <select id="colorSelectorGE" onchange="ubahGE()">
+            <option value="black">Hitam</option>
+            <option value="red">Merah</option>
+            <option value="yellow">Kuning</option>
+            <option value="green">Hijau</option>
+        </select>
+
+        <br>
+
+        <label for="colorSelector">Warna Elemen Ganjil:</label>
+        <select id="colorSelectorGA" onchange="ubahGA()">
+            <option value="black">Hitam</option>
+            <option value="purple">Ungu</option>
+            <option value="orange">Oren</option>
+            <option value="blue">Biru</option>
+        </select>
+
+    </div>
+
+    <script src="mini-project (modul-5).js"></script>
+</body>
+</html>

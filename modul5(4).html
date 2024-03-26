@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List</title>
+</head>
+<body>
+
+    <!-- Untuk menampilkan List -->
+    <div>
+        <ul id="list-items"></ul>
+    </div> 
+
+    <!-- Input Teks dan Jumlah -->
+    <h1>Konfigurasi</h1>
+
+    <div>
+
+        <!-- Input -->
+        <label for="item-text">Teks</label>
+        <input type="text" id="item-text">
+
+        <br>
+
+        <label for="item-quan">Jumlah</label>
+        <input type="number" id="item-quan">
+
+        <br>
+
+        <button onclick="addlist()">Tambahkan</button>
+
+        <br>
+
+        <!-- Konfigurasi Warna Teks -->
+        <h1>Warna Teks</h1>
+
+        <input type="radio" onclick="warna1()" name="warna">
+        <label for="blue">Blue</label>
+
+        <input type="radio" onclick="warna2()" name="warna">
+        <label for="green">Green</label>
+
+        <input type="radio" onclick="warna3()" name="warna">
+        <label for="yellow">Yellow</label>
+
+        <!-- Konfigurasi Warna Hover -->
+        <h1>Warna Hover</h1>
+
+        <input type="radio" onclick="changeHoverColor('teal')" name="warnahover">
+        <label for="teal">Teal</label>
+
+        <input type="radio" onclick="changeHoverColor('gold')" name="warnahover">
+        <label for="gold">Gold</label>
+
+        <input type="radio" onclick="changeHoverColor('lightgreen')" name="warnahover">
+        <label for="lightgreen">LightGreen</label>
+
+    </div>
+
+    <script src="modul5(4).js"></script>
+
+</body>
+</html>

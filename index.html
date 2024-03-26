@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar JS</title>
+</head>
+<body>
+    <h1 id="head">Aku Jawa</h1>
+    <button onclick="ya()">Love You</button>
+    <button onclick="no()">Malas</button>
+    <button onclick="date()">Munculkan tanggal</button>
+
+    <script>
+        function ya() {
+            var head = document.getElementById("head");
+            head.innerHTML = "Love You Too";
+        }
+        function no() {
+            var head = document.getElementById("head");
+            head.innerHTML = "Ya Jawa anj naon eta bahasa medok gtu anj kampungan";
+        }
+        function date() {
+            var date = new Date();
+            alert(date);
+        }
+    </script>
+</body>
+</html>
